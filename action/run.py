@@ -9,6 +9,7 @@ branch_name = os.getenv("ACTION_BRANCHNAME")
 config = Config()
 
 changed = False
+skip = ["py", "txt", "sh", "yml", "yaml", "git"]
 
 repofiles = [f for f in glob.glob(config.rootdir + "**/*", recursive=True)]
 dockerfiles = [f for f in repofiles if config.dockerfile_name in f.split("/")[-1].lower()]
@@ -23,6 +24,8 @@ if config.exclude_package:
     print(f"Skipping {config.exclude_package}")
 
 for filepath in dockerfiles:
+    if filepath.split(".")[-1] in skip:
+        continue
     dockerfile = Dockerfile(config, filepath)
     if dockerfile.update():
         changed = True
