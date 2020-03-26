@@ -1,0 +1,28 @@
+name: 'Dockerfile upater'
+author: ludeeus
+description: 'A GitHub action to handle your Dockerfile dependencies.'
+inputs:
+  token:
+    description: 'GitHub token to use in the action ${{ secrets.GITHUB_TOKEN }}'
+    required: true
+  pr_title:
+    description: "The title of the PR's this action creates."
+    required: false
+  dockerfile_name:
+    description: "This action run on all files that contains this value."
+    required: false
+  exclude_type:
+    description: "A comma separated string of types you don't want to check."
+    required: false
+  exclude_package:
+    description: "A comma separated string of packages you don't want to check."
+    required: false
+  commit_msg:
+    description: "The string used in commit messages."
+    required: false
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+branding:
+  icon: 'arrow-up'  
+  color: 'orange'

@@ -1,0 +1,43 @@
+import os
+from github import Github
+
+class Config:
+    github = Github(os.getenv("INPUT_TOKEN"))
+
+    @property
+    def dockerfile_name(self):
+        if os.getenv("INPUT_DOCKERFILE_NAME"):
+            return os.getenv("INPUT_DOCKERFILE_NAME").replace('"', "").lower()
+        return "dockerfile".lower()
+
+    @property
+    def pr_title(self):
+        if os.getenv("INPUT_PR_TITLE"):
+            return os.getenv("INPUT_PR_TITLE")
+        return "Dockerfile updates 🎉"
+
+    @property
+    def rootdir(self):
+        return "/github/workspace/"
+
+    @property
+    def repo(self):
+        return os.getenv("GITHUB_REPOSITORY")
+
+    @property
+    def exclude_type(self):
+        if os.getenv("INPUT_EXCLUDE_TYPE"):
+            return os.getenv("INPUT_EXCLUDE_TYPE").replace('"', "").replace(" ", "").split(",")
+        return []
+
+    @property
+    def exclude_package(self):
+        if os.getenv("INPUT_EXCLUDE_PACKAGE"):
+            return os.getenv("INPUT_EXCLUDE_PACKAGE").replace('"', "").replace(" ", "").split(",")
+        return []
+
+    @property
+    def commit_msg(self):
+        if os.getenv("INPUT_COMMIT_MSG"):
+            return os.getenv("INPUT_COMMIT_MSG")
+        return "Update [package] from [from_version] to [to_version]"
