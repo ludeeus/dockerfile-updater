@@ -3,7 +3,7 @@ author: ludeeus
 description: 'A GitHub action to handle your Dockerfile dependencies.'
 inputs:
   token:
-    description: 'GitHub token to use in the action ${{ secrets.GITHUB_TOKEN }}'
+    description: 'GitHub token to use in the action'
     required: true
   pr_title:
     description: "The title of the PR's this action creates."
