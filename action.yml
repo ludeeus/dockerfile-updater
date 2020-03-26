@@ -1,4 +1,4 @@
-name: 'Dockerfile upater'
+name: 'Dockerfile updater'
 author: ludeeus
 description: 'A GitHub action to handle your Dockerfile dependencies.'
 inputs:
