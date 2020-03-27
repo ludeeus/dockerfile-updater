@@ -24,6 +24,8 @@ if config.exclude_package:
     print(f"Skipping {config.exclude_package}")
 
 for filepath in dockerfiles:
+    if os.path.isdir(filepath):
+        continue
     if filepath.split(".")[-1] in skip:
         continue
     dockerfile = Dockerfile(config, filepath)
