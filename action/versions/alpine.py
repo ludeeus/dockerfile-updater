@@ -1,6 +1,7 @@
 from alpinepkgs.packages import get_package
 
 def version_alpine(pkg):
+    print(f"[alpine] {pkg}")
     try:
         return get_package(pkg)["x86_64"]["version"]
     except Exception as e:

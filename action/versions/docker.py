@@ -1,6 +1,7 @@
 import requests
 
 def get_docker_tags(image):
+    print(f"[docker] {image}")
     if image != "debian":
         url = f"https://registry.hub.docker.com/v2/repositories/library/{image}/tags"
         response = requests.get(url).json()
