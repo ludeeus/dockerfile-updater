@@ -105,6 +105,8 @@ class Dockerfile:
             return
 
         for pkg in self.get_packages(content):
+            if "==" not in pkg:
+                continue
             package = Package(pkg, "==")
             if package.name in self.config.exclude_package:
                 continue

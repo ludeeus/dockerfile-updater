@@ -63,7 +63,7 @@ _This will run 4:40 PM every day._
 
 - Debian packages you install with `apt install`
 - More base images.
-- Special ARG/ENV variables, (like `ARG S6_OVERLAY="vX.X.X"`).
+- Special ARG variables, (like `ARG S6_OVERLAY="vX.X.X"`).
 
 ***
 
