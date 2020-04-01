@@ -1,6 +1,7 @@
 {
-	"image": "ludeeus/container:python-base",
+	"image": "ludeeus/container:python",
 	"context": "..",
+	"postCreateCommand": "python3 -m install -r requirements.txt",
 	"runArgs": [
 		"-v",
 		"${env:HOME}${env:USERPROFILE}/.ssh:/tmp/.ssh"
@@ -14,7 +15,7 @@
 		"files.eol": "\n",
 		"editor.tabSize": 4,
 		"terminal.integrated.shell.linux": "/bin/bash",
-		"python.pythonPath": "/usr/local/bin/python",
+		"python.pythonPath": "/usr/bin/python3",
 		"python.linting.pylintEnabled": true,
 		"python.linting.enabled": true,
 		"python.formatting.provider": "black",
