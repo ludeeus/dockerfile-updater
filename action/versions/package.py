@@ -2,7 +2,7 @@ import subprocess
 
 class Package:
     def __init__(self, package, seperator="="):
-        self.old = f" {package}"
+        self.old = package
         self.seperator = seperator
         self.name = package.split(seperator)[0]
         self.installed = package.split(seperator)[-1]
@@ -10,7 +10,7 @@ class Package:
 
     @property
     def new(self):
-        return f" {self.name}{self.seperator}{self.available}"
+        return f"{self.name}{self.seperator}{self.available}"
 
     @property
     def updated(self):
