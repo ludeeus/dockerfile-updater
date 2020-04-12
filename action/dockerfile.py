@@ -111,6 +111,7 @@ class Dockerfile:
 
         if available is not None and image is not None:
             if available != installed:
+                self.get_content()
                 self.content = self.content.replace(installed, available)
                 self.write_content()
                 self.commit(image, installed.split(":")[-1], available.split(":")[-1])
@@ -123,6 +124,7 @@ class Dockerfile:
                 continue
             package.available = version_pypi(package.name)
             if package.updated:
+                self.get_content()
                 self.content = self.content.replace(package.old, package.new)
                 self.write_content()
                 self.commit(package.name, package.installed, package.available)
@@ -132,6 +134,7 @@ class Dockerfile:
             if "==" not in package.old:
                 package.available = version_alpine(package.name)
                 if package.updated:
+                    self.get_content()
                     self.content = self.content.replace(package.old, package.new)
                     self.write_content()
                     self.commit(package.name, package.installed, package.available)
@@ -141,6 +144,7 @@ class Dockerfile:
             if "==" not in package.old:
                 package.available = version_debian(package.name)
                 if package.updated:
+                    self.get_content()
                     self.content = self.content.replace(package.old, package.new)
                     self.write_content()
                     self.commit(package.name, package.installed, package.available)
