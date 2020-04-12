@@ -10,7 +10,7 @@ class Package:
 
     @property
     def new(self):
-        return f"{self.name}{self.seperator}{self.available}"
+        return f" {self.name}{self.seperator}{self.available}"
 
     @property
     def updated(self):
