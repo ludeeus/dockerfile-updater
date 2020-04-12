@@ -6,4 +6,4 @@ def version_alpine(pkg):
         return get_package(pkg)["x86_64"]["version"]
     except Exception as e:
         print(f"Could not get version for {pkg} - {e}")
-        return
+        return None
