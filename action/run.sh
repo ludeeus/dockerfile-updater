@@ -14,6 +14,7 @@ git config --local user.name "GitHub Action"
 git checkout -b "${ACTION_BRANCHNAME}"
 
 # Execute action
+cd /action || exit 1
 python3 /action/run.py
 if [ "$?" != "0" ]; then
     exit 1
