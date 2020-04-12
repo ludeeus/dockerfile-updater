@@ -2,7 +2,7 @@ import subprocess
 
 class Package:
     def __init__(self, package, seperator="="):
-        self.old = package
+        self.old = f" {package}"
         self.seperator = seperator
         self.name = package.split(seperator)[0]
         self.installed = package.split(seperator)[-1]
