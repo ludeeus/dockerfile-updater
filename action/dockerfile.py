@@ -2,12 +2,12 @@ import subprocess
 import re
 import json
 from dockerfile_parse import DockerfileParser
-from action.versions.package import Package
-from action.versions.pypi import version_pypi
-from action.versions.alpine import version_alpine
-from action.versions.debian import version_debian
-from action.versions.docker import get_docker_tags
-from action.helpers import get_packages
+from versions.package import Package
+from versions.pypi import version_pypi
+from versions.alpine import version_alpine
+from versions.debian import version_debian
+from versions.docker import get_docker_tags
+from helpers import get_packages
 
 
 class Dockerfile:
@@ -73,7 +73,7 @@ class Dockerfile:
         return self.changed
 
     def update_base_image(self, structure):
-        installed = structure.get("run").strip()
+        installed = structure.get("from")[0].strip()
         available = None
         image = None
         if ":" not in installed:
@@ -116,10 +116,9 @@ class Dockerfile:
                 self.commit(image, installed.split(":")[-1], available.split(":")[-1])
 
     def update_pip_packages(self, structure):
-        for pkg in get_packages(structure)["pypi"]:
-            if "==" not in pkg:
+        for package in get_packages(structure)["pypi"]:
+            if "==" not in package.old:
                 continue
-            package = Package(pkg, "==")
             if package.name in self.config.exclude_package:
                 continue
             package.available = version_pypi(package.name)
@@ -129,9 +128,8 @@ class Dockerfile:
                 self.commit(package.name, package.installed, package.available)
 
     def update_alpine_packages(self, structure):
-        for pkg in get_packages(structure)["alpine"]:
-            if "==" not in pkg:
-                package = Package(pkg)
+        for package in get_packages(structure)["alpine"]:
+            if "==" not in package.old:
                 package.available = version_alpine(package.name)
                 if package.updated:
                     self.content = self.content.replace(package.old, package.new)
@@ -139,9 +137,8 @@ class Dockerfile:
                     self.commit(package.name, package.installed, package.available)
 
     def update_debian_packages(self, structure):
-        for pkg in get_packages(structure)["debian"]:
-            if "==" not in pkg:
-                package = Package(pkg)
+        for package in get_packages(structure)["debian"]:
+            if "==" not in package.old:
                 package.available = version_debian(package.name)
                 if package.updated:
                     self.content = self.content.replace(package.old, package.new)

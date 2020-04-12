@@ -1,8 +1,8 @@
 import os
 import subprocess
 import glob
-from action.config import Config
-from action.dockerfile import Dockerfile
+from config import Config
+from dockerfile import Dockerfile
 
 current_branch_name = os.getenv("ACTION_CURRENT_BRANCH")
 branch_name = os.getenv("ACTION_BRANCHNAME")
