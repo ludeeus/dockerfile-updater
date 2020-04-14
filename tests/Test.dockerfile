@@ -14,7 +14,7 @@ RUN \
         package==0.1.1 \
         not-valid>=0.0.0
 
-RUN pip install test-package==0.1.1
+RUN pip install test-package==0.2
 
 FROM debian:0.0-slim
 
