@@ -1,7 +1,6 @@
 import requests
 
 def version_debian(pkg):
-    print(f"[debian] {pkg}")
     try:
         url = f"https://sources.debian.org/api/src/{pkg}/"
         response = requests.get(url).json()

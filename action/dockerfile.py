@@ -58,6 +58,9 @@ class Dockerfile:
         print(f"Checking for updates in '{self.filepathmin}'")
         x, y, z = self.get_structure()
         structure = {"from": x, "arg": y, "run": z}
+        print("Found current structure:")
+        for key in structure:
+            print(f"{key}: {structure[key]}")
         if not structure.get("run"):
             return
 
@@ -74,6 +77,12 @@ class Dockerfile:
 
     def update_base_image(self, structure):
         installed = structure.get("from")[0].strip()
+        if installed == "${BUILD_FROM}":
+            for arg in structure["arg"] or []:
+                if "BUILD_FROM" in arg:
+                    installed = arg.split("=")[-1]
+                    break
+
         available = None
         image = None
         if ":" not in installed:
@@ -113,6 +122,7 @@ class Dockerfile:
             if available != installed:
                 self.get_content()
                 self.content = self.content.replace(installed, available)
+                print(self.content)
                 self.write_content()
                 self.commit(image, installed.split(":")[-1], available.split(":")[-1])
 
@@ -123,6 +133,7 @@ class Dockerfile:
             if package.name in self.config.exclude_package:
                 continue
             package.available = version_pypi(package.name)
+            print(f"[python] {package.name} {package.installed} - {package.available}")
             if package.updated:
                 self.get_content()
                 self.content = self.content.replace(package.old, package.new)
@@ -133,6 +144,7 @@ class Dockerfile:
         for package in get_packages(structure)["alpine"]:
             if "==" not in package.old:
                 package.available = version_alpine(package.name)
+                print(f"[alpine] {package.name} {package.installed} - {package.available}")
                 if package.updated:
                     self.get_content()
                     self.content = self.content.replace(package.old, package.new)
@@ -143,6 +155,7 @@ class Dockerfile:
         for package in get_packages(structure)["debian"]:
             if "==" not in package.old:
                 package.available = version_debian(package.name)
+                print(f"[debian] {package.name} {package.installed} - {package.available}")
                 if package.updated:
                     self.get_content()
                     self.content = self.content.replace(package.old, package.new)
