@@ -122,7 +122,6 @@ class Dockerfile:
             if available != installed:
                 self.get_content()
                 self.content = self.content.replace(installed, available)
-                print(self.content)
                 self.write_content()
                 self.commit(image, installed.split(":")[-1], available.split(":")[-1])
 

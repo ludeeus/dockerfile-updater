@@ -23,13 +23,12 @@ if config.exclude_type:
 if config.exclude_package:
     print(f"Skipping {config.exclude_package}")
 
-for filepath in dockerfiles:
+for filepath in sorted(dockerfiles):
     if os.path.isdir(filepath):
         continue
     if filepath.split(".")[-1] in skip:
         continue
-    dockerfile = Dockerfile(config, filepath)
-    if dockerfile.update():
+    if Dockerfile(config, filepath).update():
         changed = True
 
 if not changed:
