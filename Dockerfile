@@ -5,7 +5,7 @@ COPY action /action/
 RUN \
     python3 -m pip install --no-cache-dir -U \
         alpinepkgs==1.1.2 \
-        PyGithub==1.47 \
+        PyGithub==1.50 \
         dockerfile-parse==0.0.16 \
     \
     && find /usr/local \
