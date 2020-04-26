@@ -91,9 +91,9 @@ class Dockerfile:
             image = "alpine"
             if len(installed.split(":")[-1].split(".")) != 3:
                 return
-            for tag in get_docker_tags(image):
-                if len(tag["name"].split(".")) == 3:
-                    available = f"alpine:{tag['name']}"
+            for tag in sorted(get_docker_tags(image), reverse=True):
+                if len(tag.split(".")) == 3:
+                    available = f"alpine:{tag}"
                     break
 
         if "debian" in installed:
