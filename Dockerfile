@@ -6,7 +6,7 @@ RUN \
     python3 -m pip install --no-cache-dir -U \
         alpinepkgs==1.1.2 \
         PyGithub==1.50 \
-        dockerfile-parse==0.0.16 \
+        dockerfile-parse==0.0.17 \
     \
     && find /usr/local \
         \( -type d -a -name test -o -name tests -o -name '__pycache__' \) \
