@@ -4,7 +4,7 @@ COPY action /action/
 
 RUN \
     python3 -m pip install --no-cache-dir -U \
-        alpinepkgs==1.1.2 \
+        alpinepkgs==1.1.3 \
         PyGithub==1.51 \
         dockerfile-parse==0.0.18 \
     \
