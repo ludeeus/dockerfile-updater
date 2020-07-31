@@ -1,6 +1,6 @@
 """Helpers."""
 import re
-from versions.package import Package
+from .versions.package import Package
 
 
 def get_packages(structure):

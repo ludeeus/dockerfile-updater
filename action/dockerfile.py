@@ -2,12 +2,12 @@ import subprocess
 import re
 import json
 from dockerfile_parse import DockerfileParser
-from versions.package import Package
-from versions.pypi import version_pypi
-from versions.alpine import version_alpine
-from versions.debian import version_debian
-from versions.docker import get_docker_tags
-from helpers import get_packages
+from .versions.package import Package
+from .versions.pypi import version_pypi
+from .versions.alpine import version_alpine
+from .versions.debian import version_debian
+from .versions.docker import get_docker_tags
+from .helpers import get_packages
 
 
 class Dockerfile:
@@ -84,12 +84,11 @@ class Dockerfile:
             key = keyValue[0]
             # Lookup the desired args to change
             arg = inputArgs.get(key)
-            if(arg):
+            if arg:
                 self.get_content()
                 self.config = self.content.replace(fileArgs, arg)
                 self.write_content()
                 self.commit("ARG " + key, keyValue[1], arg.split("=")[1])
-                
 
     def update_base_image(self, structure):
         installed = structure.get("from")[0].strip()
@@ -159,7 +158,9 @@ class Dockerfile:
         for package in get_packages(structure)["alpine"]:
             if "==" not in package.old:
                 package.available = version_alpine(package.name)
-                print(f"[alpine] {package.name} {package.installed} - {package.available}")
+                print(
+                    f"[alpine] {package.name} {package.installed} - {package.available}"
+                )
                 if package.updated:
                     self.get_content()
                     self.content = self.content.replace(package.old, package.new)
@@ -170,7 +171,9 @@ class Dockerfile:
         for package in get_packages(structure)["debian"]:
             if "==" not in package.old:
                 package.available = version_debian(package.name)
-                print(f"[debian] {package.name} {package.installed} - {package.available}")
+                print(
+                    f"[debian] {package.name} {package.installed} - {package.available}"
+                )
                 if package.updated:
                     self.get_content()
                     self.content = self.content.replace(package.old, package.new)

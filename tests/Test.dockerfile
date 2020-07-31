@@ -1,4 +1,4 @@
-FROM alpine:3.12.0
+FROM alpine:0.0.0
 ARG S6_VERSION="0.0.0"
 
 RUN \

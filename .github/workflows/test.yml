@@ -1,0 +1,19 @@
+name: Test
+
+on:
+  pull_request:
+  push:
+
+jobs:
+  deploy:
+    name: Test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout files
+        uses: actions/checkout@v2
+
+      - name: Install requirements
+        run: python3 -m pip install -r requirements.txt
+
+      - name: Run test
+        run: python3 -m pytest -v

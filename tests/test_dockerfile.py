@@ -13,5 +13,5 @@ def test_structure(tmpdir):
     assert ["alpine:0.0.0", "debian:0.0", "debian:0.0-slim"] == structure["from"]
     assert "apk add" in structure["run"][0]
     assert "python" in structure["run"][1]
-    assert "apt install" in structure["run"][3]
+    assert "apt install" in str(structure["run"])
     assert 'S6_VERSION="0.0.0"' in structure["arg"]

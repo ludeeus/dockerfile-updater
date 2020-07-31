@@ -1,17 +1,26 @@
-FROM ludeeus/container:python-base
+FROM alpine:0.0.0
+ARG S6_VERSION="0.0.0"
 
-COPY action /action/
+RUN \
+    apk add --no-cache \
+        test=0.0.0 \
+        package=0.0.0
+
+FROM debian:0.0
 
 RUN \
     python3 -m pip install --no-cache-dir -U \
-        alpinepkgs==1.1.3 \
-        PyGithub==1.51 \
-        dockerfile-parse==1.0.0 \
-    \
-    && find /usr/local \
-        \( -type d -a -name test -o -name tests -o -name '__pycache__' \) \
-        -o \( -type f -a -name '*.pyc' -o -name '*.pyo' \) \
-        -exec rm -rf '{}' \;
+        test==0.0.0 \
+        package==0.1.1 \
+        not-valid>=0.0.0
 
-WORKDIR "/github/workspace"
-ENTRYPOINT ["bash", "/action/run.sh"]
+RUN pip install test-package==0.2
+
+FROM debian:0.0-slim
+
+RUN \
+    apt update \
+    \
+    && apt install -y --no-install-recommends  \
+        test=0.0.0 \
+        package=0.0.0
