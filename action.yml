@@ -20,6 +20,9 @@ inputs:
   commit_msg:
     description: "The string used in commit messages."
     required: false
+  args:
+    description: "A comma separated string of ARG key/value pairs."
+    required: false
 runs:
   using: 'docker'
   image: 'Dockerfile'

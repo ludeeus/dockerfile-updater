@@ -70,10 +70,26 @@ class Dockerfile:
             self.update_pip_packages(structure)
         if "apk" not in self.config.exclude_type:
             self.update_alpine_packages(structure)
+        if "arg" not in self.config.exclude_type:
+            self.update_args(structure)
         # if "apt" not in self.config.exclude_type:
         #    self.update_debian_packages(structure)
 
         return self.changed
+
+    def update_args(self, structure):
+        inputArgs = self.config.args
+        for fileArgs in structure["arg"] or []:
+            keyValue = fileArgs.split("=")
+            key = keyValue[0]
+            # Lookup the desired args to change
+            arg = inputArgs.get(key)
+            if(arg):
+                self.get_content()
+                self.config = self.content.replace(fileArgs, arg)
+                self.write_content()
+                self.commit("ARG " + key, keyValue[1], arg.split("=")[1])
+                
 
     def update_base_image(self, structure):
         installed = structure.get("from")[0].strip()
