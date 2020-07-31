@@ -45,9 +45,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout files
-        uses: actions/checkout@master
+        uses: actions/checkout@v2
       - name: Update Dockerfiles
-        uses: ludeeus/dockerfile-updater@master
+        uses: ludeeus/dockerfile-updater@main
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
 ```
