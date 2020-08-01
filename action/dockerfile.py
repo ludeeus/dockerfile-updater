@@ -79,11 +79,14 @@ class Dockerfile:
 
     def update_args(self, structure):
         inputArgs = self.config.args
+        print("ARGs recevied as input: \n" + inputArgs)
         for fileArgs in structure["arg"] or []:
             keyValue = fileArgs.split("=")
             key = keyValue[0]
             # Lookup the desired args to change
+            print("Existing keyValues: \n" + keyValue)
             arg = inputArgs.get(key)
+            print("Lookup key: " + key + " | Value: " + arg)
             if(arg):
                 self.get_content()
                 self.config = self.content.replace(fileArgs, arg)
