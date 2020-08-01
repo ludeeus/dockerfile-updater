@@ -60,12 +60,12 @@ _This will run 4:40 PM every day._
 - Your base image (FROM) if you use `alpine` / `debian`
 - Packages from PyPi.
 - Alpine packages you install with `apk add`
+- Special ARG variables, (formats: `ARG S6_OVERLAY="vX.X.X"` / `ARG MYARG`).
 
 ## Planed for the future
 
 - Debian packages you install with `apt install`
 - More base images.
-- Special ARG variables, (like `ARG S6_OVERLAY="vX.X.X"`).
 
 ***
 
