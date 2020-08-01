@@ -18,7 +18,7 @@ def test_structure(tmpdir):
     assert any(match in cmd for cmd in runList)
     match = "apt install"
     assert any(match in cmd for cmd in runList)
-    assert ['S6_VERSION="0.0.0"', "ARG1=VALUE1", "ARG2=VALUE2", "ARG3"] == structure["arg"]
+    assert ['S6_VERSION="0.0.0"', "ARG1=\"VALUE1\"", "ARG2=\"VALUE2\"", "ARG3"] == structure["arg"]
 
 
 def test_args_replacement(tmpdir):
