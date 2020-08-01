@@ -79,7 +79,7 @@ class Dockerfile:
 
     def update_args(self, structure):
         inputArgs = self.config.args
-        print("ARGs recevied as input: \n" + inputArgs)
+        print("ARGs recevied as input: \n", inputArgs)
         for fileArgs in structure["arg"] or []:
             keyValue = fileArgs.split("=")
             key = keyValue[0]
