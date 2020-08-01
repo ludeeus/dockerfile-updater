@@ -2,12 +2,12 @@ import subprocess
 import re
 import json
 from dockerfile_parse import DockerfileParser
-from versions.package import Package
-from versions.pypi import version_pypi
-from versions.alpine import version_alpine
-from versions.debian import version_debian
-from versions.docker import get_docker_tags
-from helpers import get_packages
+from .versions.package import Package
+from .versions.pypi import version_pypi
+from .versions.alpine import version_alpine
+from .versions.debian import version_debian
+from .versions.docker import get_docker_tags
+from .helpers import get_packages
 
 
 class Dockerfile:
@@ -102,7 +102,6 @@ class Dockerfile:
                 self.content = self.content.replace("ARG " + fileArgs, "ARG " + arg)
                 self.write_content()
                 self.commit("ARG " + key, value, arg.split("=")[-1])
-                
 
     def update_base_image(self, structure):
         installed = structure.get("from")[0].strip()
@@ -172,7 +171,9 @@ class Dockerfile:
         for package in get_packages(structure)["alpine"]:
             if "==" not in package.old:
                 package.available = version_alpine(package.name)
-                print(f"[alpine] {package.name} {package.installed} - {package.available}")
+                print(
+                    f"[alpine] {package.name} {package.installed} - {package.available}"
+                )
                 if package.updated:
                     self.get_content()
                     self.content = self.content.replace(package.old, package.new)
@@ -183,7 +184,9 @@ class Dockerfile:
         for package in get_packages(structure)["debian"]:
             if "==" not in package.old:
                 package.available = version_debian(package.name)
-                print(f"[debian] {package.name} {package.installed} - {package.available}")
+                print(
+                    f"[debian] {package.name} {package.installed} - {package.available}"
+                )
                 if package.updated:
                     self.get_content()
                     self.content = self.content.replace(package.old, package.new)
