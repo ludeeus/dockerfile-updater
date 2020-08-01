@@ -44,8 +44,8 @@ class Config:
 
     @property
     def args(self):
-        print("INPUT_ARGS: " + os.getenv("INPUT_ARGS"))
-        return self.extractValuesToList(os.getenv("INPUT_ARGS"))
+        print("INPUT_ARGS: " + os.getenv("INPUT_ARGS", ""))
+        return self.extractValuesToList(os.getenv("INPUT_ARGS", ""))
 
     def extractValuesToList(self, values):
         args = {}
