@@ -83,6 +83,16 @@ class Dockerfile:
         for fileArgs in structure["arg"] or []:
             keyValue = fileArgs.split("=")
             key = keyValue[0]
+            # In case ARG value is not set
+            value = ""
+            keyValueSize = len(keyValue)
+            # Validate format
+            if(keyValueSize > 2):
+                print("Found ivalid size of: " + keyValueSize + " Please check format for: \n", keyValue)
+                continue
+            # If the ARG has been set, capture value
+            if(keyValueSize == 2):
+                value = keyValue[1]
             # Lookup the desired args to change
             print("Existing keyValues: \n", keyValue)
             arg = inputArgs.get(key)
@@ -91,7 +101,7 @@ class Dockerfile:
                 self.get_content()
                 self.config = self.content.replace(fileArgs, arg)
                 self.write_content()
-                self.commit("ARG " + key, keyValue[1], arg.split("=")[1])
+                self.commit("ARG " + key, value, arg.split("=")[-1])
                 
 
     def update_base_image(self, structure):
