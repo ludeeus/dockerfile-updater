@@ -14,6 +14,7 @@ def test_structure(tmpdir):
     assert "apk add" in structure["run"][0] 
     assert "python" in structure["run"][1]
     apt = "apt install"
+    print(structure["run"][3])
     assert any(apt in cmd for cmd in structure["run"][3])
     assert ['S6_VERSION="0.0.0"', "ARG1=VALUE1", "ARG2=VALUE2", "ARG3"] in structure["arg"]
 
