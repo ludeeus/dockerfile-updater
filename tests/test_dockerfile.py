@@ -32,7 +32,10 @@ def test_args_replacement(tmpdir):
         structure = {"from": x, "arg": y, "run": z}
         os.environ["INPUT_ARGS"] = args
         dockerfile.commit = MagicMock()
-        assert [arg1, arg2, arg3] == structure["arg"]
+        argList = structure["arg"]
+        assert any(arg1 in cmd for cmd in argList)
+        assert any(arg2 in cmd for cmd in argList)
+        assert any(arg3 in cmd for cmd in argList)
 
 
 def copyDockerfile(tmpdir):
