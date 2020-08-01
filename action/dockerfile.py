@@ -99,7 +99,7 @@ class Dockerfile:
             print("Lookup key: " + key + " | Value: " + arg)
             if(arg):
                 self.get_content()
-                self.config = self.content.replace(fileArgs, arg)
+                self.content = self.content.replace(fileArgs, arg)
                 self.write_content()
                 self.commit("ARG " + key, value, arg.split("=")[-1])
                 
