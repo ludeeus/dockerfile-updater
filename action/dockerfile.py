@@ -80,8 +80,12 @@ class Dockerfile:
     def update_args(self, structure):
         inputArgs = self.config.args
         print("ARGs recevied as input: \n", inputArgs)
-        for fileArgs in structure["arg"] or []:
-            keyValue = fileArgs.split("=")
+        fileArgList = structure["arg"]
+        if not fileArgList:
+            print("No ARGs found in file.")
+            return
+        for fileArg in fileArgList:
+            keyValue = fileArg.split("=")
             key = keyValue[0]
             # In case ARG value is not set
             value = ""
@@ -99,7 +103,7 @@ class Dockerfile:
             print("Lookup key: " + key + " | Value: " + arg)
             if(arg):
                 self.get_content()
-                self.content = self.content.replace("ARG " + fileArgs, "ARG " + arg)
+                self.content = self.content.replace("ARG " + fileArg, "ARG " + arg)
                 self.write_content()
                 self.commit("ARG " + key, value, arg.split("=")[-1])
 
