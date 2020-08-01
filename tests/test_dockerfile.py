@@ -1,4 +1,5 @@
 """Test dockerfile parsing."""
+import os
 from shutil import copyfile
 from action.dockerfile import Dockerfile
 from action.config import Config
@@ -25,7 +26,8 @@ def test_args_replacement(tmpdir):
     dockerfile = copyDockerfile(tmpdir)
     x, y, z = dockerfile.get_structure()
     structure = {"from": x, "arg": y, "run": z}
-    dockerfile.update_args(args, structure)
+    os.environ["INPUT_ARGS"] = args
+    dockerfile.update_args(structure)
     assert [arg1, arg2, arg3] in structure["arg"]
 
 
