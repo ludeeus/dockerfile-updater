@@ -25,7 +25,7 @@ def test_args_replacement(tmpdir):
     dockerfile = copyDockerfile(tmpdir)
     x, y, z = dockerfile.get_structure()
     structure = {"from": x, "arg": y, "run": z}
-    dockerfile.update_args(args)
+    dockerfile.update_args(args, structure)
     assert [arg1, arg2, arg3] in structure["arg"]
 
 
