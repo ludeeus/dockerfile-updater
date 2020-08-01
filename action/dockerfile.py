@@ -84,7 +84,7 @@ class Dockerfile:
             keyValue = fileArgs.split("=")
             key = keyValue[0]
             # Lookup the desired args to change
-            print("Existing keyValues: \n" + keyValue)
+            print("Existing keyValues: \n", keyValue)
             arg = inputArgs.get(key)
             print("Lookup key: " + key + " | Value: " + arg)
             if(arg):
