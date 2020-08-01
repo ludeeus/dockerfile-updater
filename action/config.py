@@ -41,3 +41,17 @@ class Config:
         if os.getenv("INPUT_COMMIT_MSG"):
             return os.getenv("INPUT_COMMIT_MSG")
         return "Update [package] from [from_version] to [to_version]"
+
+    @property
+    def args(self):
+        print("INPUT_ARGS: " + os.getenv("INPUT_ARGS"))
+        return self.extractValuesToList(os.getenv("INPUT_ARGS"))
+
+    def extractValuesToList(self, values):
+        args = {}
+        if values:
+            argList = values.split(",")
+            for argPair in argList:
+                keyValue = argPair.split("=")
+                args[keyValue[0]] = argPair
+        return args

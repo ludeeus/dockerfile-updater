@@ -1,5 +1,8 @@
 FROM alpine:3.12.0
 ARG S6_VERSION="0.0.0"
+ARG ARG1="VALUE1"
+ARG ARG2="VALUE2"
+ARG ARG3
 
 RUN \
     apk add --no-cache \
