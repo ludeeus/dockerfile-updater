@@ -101,8 +101,8 @@ class Dockerfile:
             print("Existing keyValues: \n", keyValue)
             arg = inputArgs.get(key)
             print("Lookup key: ", key) 
-            print("Lookup value: ", arg)
             if(arg):
+                print("Key match. Value: ", arg)
                 self.get_content()
                 self.content = self.content.replace("ARG " + fileArg, "ARG " + arg)
                 self.write_content()
