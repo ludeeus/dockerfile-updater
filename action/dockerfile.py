@@ -100,7 +100,8 @@ class Dockerfile:
             # Lookup the desired args to change
             print("Existing keyValues: \n", keyValue)
             arg = inputArgs.get(key)
-            print("Lookup key: " + key + " | Value: " + arg)
+            print("Lookup key: ", key) 
+            print("Lookup value: ", arg)
             if(arg):
                 self.get_content()
                 self.content = self.content.replace("ARG " + fileArg, "ARG " + arg)
