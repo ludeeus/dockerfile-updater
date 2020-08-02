@@ -3,3 +3,4 @@ env
 test
 Testfiles
 .pytest_cache
+settings.json
