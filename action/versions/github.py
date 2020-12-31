@@ -1,5 +1,3 @@
-import requests
-
 def version_github(github, repo):
     print(f"[github] {repo}")
     try:
@@ -7,5 +5,5 @@ def version_github(github, repo):
         releases = repo.get_releases()
         return releases[0].tag_name
     except Exception as e:
-        print(f"Could not get version for {pkg} - {e}")
+        print(f"Could not get version for {repo} - {e}")
         return None
