@@ -9,7 +9,7 @@ on:
       - main
 
 jobs:
-  deploy:
+  test:
     name: Test
     runs-on: ubuntu-latest
     steps:
@@ -23,3 +23,18 @@ jobs:
 
       - name: 🏃 Run the tests
         run: python3 -m pytest -v
+
+  run:
+    name: Run
+    runs-on: ubuntu-latest
+    steps:
+      - name: 📥 Checkout the repository
+        uses: actions/checkout@v2
+
+      - name: 🏃 Run the action
+        uses: ./
+        with:
+          disable_pr: True
+
+      - name: ✅ Check the output
+        run: cat ./changes

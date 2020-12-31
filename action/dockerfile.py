@@ -47,12 +47,15 @@ class Dockerfile:
         self.changed = True
 
     def get_content(self):
+        content = ""
         with open(self.filepath, "r") as f:
-            content = f.read()
+            try:
+                content = f.read()
+            except UnicodeDecodeError:
+                print(content, self.filepath)
         self.content = content
 
     def write_content(self):
-        print(f"writing to {self.filepath}")
         with open(self.filepath, "w") as f:
             f.write(self.content)
 
