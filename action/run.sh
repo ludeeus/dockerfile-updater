@@ -1,5 +1,6 @@
 #!/bin/bash
 echo "I solemnly swear that I am up to no good."
+cd /github/workspace | exit 1
 current_branch=$(git rev-parse --abbrev-ref HEAD)
 export ACTION_CURRENT_BRANCH="${current_branch}"
 
@@ -7,6 +8,9 @@ timestamp=$(date +%s)
 export ACTION_BRANCHNAME="dockerfile-updater/${timestamp}"
 
 # Init git config
+if [ ! -d ".git" ]; then
+    git init
+fi
 git config --local user.email "action@github.com"
 git config --local user.name "GitHub Action"
 
@@ -14,7 +18,9 @@ git config --local user.name "GitHub Action"
 git checkout -b "${ACTION_BRANCHNAME}"
 
 # Execute action
-python3 /action/run.py
+mkdir -p /github/workspace/somerandomstringthatdoesnotexsist
+cp -r /action/* /github/workspace/somerandomstringthatdoesnotexsist/
+python3 -m somerandomstringthatdoesnotexsist.run
 if [ "$?" != "0" ]; then
     exit 1
 fi
@@ -24,7 +30,7 @@ fi
 if [ -s changes ]; then
     git push "https://x-access-token:${INPUT_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" "${ACTION_BRANCHNAME}"
     if [ -n ${INPUT_DISABLE_PR+x} ] || [ "${INPUT_DISABLE_PR}" = "false" ]; then
-        python3 /action/create_pr.py  
+        python3 -m somerandomstringthatdoesnotexsist.create_pr
     fi
     else
         echo "Automatic PR disabled"
@@ -32,6 +38,8 @@ if [ -s changes ]; then
         exit 1
     fi
 fi
+
+rm -rf /github/workspace/somerandomstringthatdoesnotexsist
 
 # Set back the active branch
 git checkout "${ACTION_CURRENT_BRANCH}"
