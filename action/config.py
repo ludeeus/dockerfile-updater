@@ -1,8 +1,12 @@
 import os
 from github import Github
 
+
 class Config:
     github = Github(os.getenv("INPUT_TOKEN"))
+
+    def __init__(self, rootdir: str = "/github/workspace/"):
+        self._rootdir = rootdir
 
     @property
     def dockerfile_name(self):
@@ -18,7 +22,7 @@ class Config:
 
     @property
     def rootdir(self):
-        return "/github/workspace/"
+        return self._rootdir
 
     @property
     def repo(self):
@@ -27,13 +31,23 @@ class Config:
     @property
     def exclude_type(self):
         if os.getenv("INPUT_EXCLUDE_TYPE"):
-            return os.getenv("INPUT_EXCLUDE_TYPE").replace('"', "").replace(" ", "").split(",")
+            return (
+                os.getenv("INPUT_EXCLUDE_TYPE")
+                .replace('"', "")
+                .replace(" ", "")
+                .split(",")
+            )
         return []
 
     @property
     def exclude_package(self):
         if os.getenv("INPUT_EXCLUDE_PACKAGE"):
-            return os.getenv("INPUT_EXCLUDE_PACKAGE").replace('"', "").replace(" ", "").split(",")
+            return (
+                os.getenv("INPUT_EXCLUDE_PACKAGE")
+                .replace('"', "")
+                .replace(" ", "")
+                .split(",")
+            )
         return []
 
     @property

@@ -1,3 +1,4 @@
+from shutil import copyfile
 import subprocess
 import json
 from dockerfile_parse import DockerfileParser
@@ -19,7 +20,8 @@ class Dockerfile:
         self.get_content()
 
     def get_structure(self):
-        dfp = DockerfileParser()
+        copyfile(self.filepath, "/tmp/Dockerfile")
+        dfp = DockerfileParser("/tmp/Dockerfile")
         dfp.content = self.content
 
         RUN, FROM, ARG = [], [], []
@@ -91,17 +93,22 @@ class Dockerfile:
             value = ""
             keyValueSize = len(keyValue)
             # Validate format
-            if(keyValueSize > 2):
-                print("Found ivalid size of: " + keyValueSize + " Please check format for: \n", keyValue)
+            if keyValueSize > 2:
+                print(
+                    "Found ivalid size of: "
+                    + keyValueSize
+                    + " Please check format for: \n",
+                    keyValue,
+                )
                 continue
             # If the ARG has been set, capture value
-            if(keyValueSize == 2):
+            if keyValueSize == 2:
                 value = keyValue[1]
             # Lookup the desired args to change
             print("Existing keyValues: \n", keyValue)
             arg = inputArgs.get(key)
             print("Lookup key: ", key)
-            if(arg):
+            if arg:
                 print("Key match. Value: ", arg)
                 self.get_content()
                 self.content = self.content.replace("ARG " + fileArg, "ARG " + arg)

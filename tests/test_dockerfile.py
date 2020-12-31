@@ -6,8 +6,7 @@ from action.dockerfile import Dockerfile
 from action.config import Config
 
 
-def test_structure(tmpdir):
-    dockerfile = copyDockerfile(tmpdir)
+def test_structure(dockerfile):
     x, y, z = dockerfile.get_structure()
     structure = {"from": x, "arg": y, "run": z}
     assert ["alpine:0.0.0", "debian:0.0", "debian:0.0-slim"] == structure["from"]
@@ -26,12 +25,11 @@ def test_structure(tmpdir):
     ] == structure["arg"]
 
 
-def test_args_replacement(tmpdir):
+def test_args_replacement(dockerfile):
     arg1 = 'ARG1="VALUE1"'
     arg2 = 'ARG2="VALUE2"'
     arg3 = "ARG3"
     args = arg1 + "," + arg2 + "," + arg3
-    dockerfile = copyDockerfile(tmpdir)
     x, y, z = dockerfile.get_structure()
     structure = {"from": x, "arg": y, "run": z}
     os.environ["INPUT_ARGS"] = args
@@ -40,9 +38,3 @@ def test_args_replacement(tmpdir):
     assert any(arg1 in cmd for cmd in argList)
     assert any(arg2 in cmd for cmd in argList)
     assert any(arg3 in cmd for cmd in argList)
-
-
-def copyDockerfile(tmpdir):
-    copyfile("tests/Test.dockerfile", f"{tmpdir}/Test.dockerfile")
-    config = Config()
-    return Dockerfile(config, f"{tmpdir}/Test.dockerfile")
