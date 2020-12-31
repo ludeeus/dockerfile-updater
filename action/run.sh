@@ -27,7 +27,7 @@ fi
 
 # Push branch and create PR if needed
 if [ -s changes ]; then
-    if [ -n "${INPUT_DISABLE_PR}" ] || [ "${INPUT_DISABLE_PR}" = "false" ]; then
+    if [ -z "${INPUT_DISABLE_PR}" ] || [ "${INPUT_DISABLE_PR}" = "false" ]; then
         git push "https://x-access-token:${INPUT_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" "${ACTION_BRANCHNAME}"
         python3 -m somerandomstringthatdoesnotexsist.create_pr
         if [ "$?" != "0" ]; then
