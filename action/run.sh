@@ -7,6 +7,11 @@ export ACTION_CURRENT_BRANCH="${current_branch}"
 timestamp=$(date +%s)
 export ACTION_BRANCHNAME="dockerfile-updater/${timestamp}"
 
+if [ -d /github/workspace/somerandomstringthatdoesnotexsist ]; then
+    echo "/github/workspace/somerandomstringthatdoesnotexsist exsist"
+    exit 1
+fi
+
 # Init git config
 if [ ! -d ".git" ]; then
     git init
@@ -26,7 +31,7 @@ if [ "$?" != "0" ]; then
 fi
 
 # Push branch and create PR if needed
-if [ -s changes ]; then
+if [ -f ./changes ]; then
     if [ -z "${INPUT_DISABLE_PR}" ] || [ "${INPUT_DISABLE_PR}" = "false" ]; then
         git push "https://x-access-token:${INPUT_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" "${ACTION_BRANCHNAME}"
         python3 -m somerandomstringthatdoesnotexsist.create_pr
