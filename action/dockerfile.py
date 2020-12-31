@@ -1,5 +1,4 @@
 import subprocess
-import re
 import json
 from dockerfile_parse import DockerfileParser
 from .versions.package import Package
@@ -51,6 +50,7 @@ class Dockerfile:
         self.content = content
 
     def write_content(self):
+        print(f"writing to {self.filepath}")
         with open(self.filepath, "w") as f:
             f.write(self.content)
 

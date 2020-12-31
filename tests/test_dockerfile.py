@@ -5,9 +5,10 @@ from action.config import Config
 
 
 def test_structure(tmpdir):
-    copyfile("tests/Test.dockerfile", f"{tmpdir}/Test.dockerfile")
+    copyfile("./tests/Test.dockerfile", f"{tmpdir}/Test.dockerfile")
     config = Config()
     dockerfile = Dockerfile(config, f"{tmpdir}/Test.dockerfile")
+    print(dockerfile.filepath)
     x, y, z = dockerfile.get_structure()
     structure = {"from": x, "arg": y, "run": z}
     assert ["alpine:0.0.0", "debian:0.0", "debian:0.0-slim"] == structure["from"]

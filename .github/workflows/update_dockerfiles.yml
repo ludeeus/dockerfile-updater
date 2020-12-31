@@ -8,9 +8,10 @@ jobs:
     name: Update Dockerfiles
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout files
-        uses: actions/checkout@master
-      - name: Update Dockerfiles
-        uses: ludeeus/dockerfile-updater@master
+      - name: 📥 Checkout the repository
+        uses: actions/checkout@v2
+
+      - name: 📤 Update Dockerfiles
+        uses: ludeeus/dockerfile-updater@main
         with:
           token: ${{ secrets.GITHUB_TOKEN }}

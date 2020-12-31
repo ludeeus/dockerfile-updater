@@ -6,7 +6,7 @@ from action.helpers import get_packages
 
 
 def test_get_packages(tmpdir):
-    copyfile("tests/Test.dockerfile", f"{tmpdir}/Test.dockerfile")
+    copyfile("./tests/Test.dockerfile", f"{tmpdir}/Test.dockerfile")
     config = Config()
     dockerfile = Dockerfile(config, f"{tmpdir}/Test.dockerfile")
     x, y, z = dockerfile.get_structure()

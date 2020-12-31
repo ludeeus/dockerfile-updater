@@ -6,6 +6,7 @@ from .versions.package import Package
 def get_packages(structure):
     alpine, debian, pypi = [], [], []
     tmp = [x for x in structure.get("run") if "=" in x]
+    print(structure)
     for pkg in tmp:
         if re.search(r"apk add", pkg):
             alpine.extend([Package(x) for x in pkg.split(" ") if "=" in x])

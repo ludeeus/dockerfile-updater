@@ -2,7 +2,11 @@ name: Test
 
 on:
   pull_request:
+    branches:
+      - main
   push:
+    branches:
+      - main
 
 jobs:
   deploy:
@@ -17,5 +21,5 @@ jobs:
           python3 -m pip install setuptools wheel
           python3 -m pip install -r requirements.txt
 
-      - name: Run test
+      - name: 🏃 Run the tests
         run: python3 -m pytest -v

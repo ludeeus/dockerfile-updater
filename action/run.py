@@ -17,7 +17,7 @@ dockerfiles = [
 ]
 
 if len(dockerfiles) == 0:
-    exit(f":error::No dockerfiles found")
+    exit(":error::No dockerfiles found")
 
 if config.exclude_type:
     print(f"Skipping {config.exclude_type}")
