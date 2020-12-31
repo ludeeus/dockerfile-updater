@@ -1,12 +1,12 @@
 import subprocess
 import json
 from dockerfile_parse import DockerfileParser
-from versions.package import Package
-from versions.pypi import version_pypi
-from versions.alpine import version_alpine
-from versions.debian import version_debian
-from versions.docker import get_docker_tags
-from helpers import get_packages
+from .versions.package import Package
+from .versions.pypi import version_pypi
+from .versions.alpine import version_alpine
+from .versions.debian import version_debian
+from .versions.docker import get_docker_tags
+from .helpers import get_packages
 
 
 class Dockerfile:
@@ -100,7 +100,7 @@ class Dockerfile:
             # Lookup the desired args to change
             print("Existing keyValues: \n", keyValue)
             arg = inputArgs.get(key)
-            print("Lookup key: ", key) 
+            print("Lookup key: ", key)
             if(arg):
                 print("Key match. Value: ", arg)
                 self.get_content()
