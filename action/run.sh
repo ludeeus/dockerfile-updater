@@ -1,4 +1,5 @@
 #!/bin/bash
+set -e
 echo "I solemnly swear that I am up to no good."
 cd /github/workspace | exit 1
 current_branch=$(git rev-parse --abbrev-ref HEAD)
@@ -28,8 +29,8 @@ fi
 
 # Push branch and create PR if needed
 if [ -s changes ]; then
-    git push "https://x-access-token:${INPUT_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" "${ACTION_BRANCHNAME}"
-    if [ -n ${INPUT_DISABLE_PR} ] || [ "${INPUT_DISABLE_PR}" = "false" ]; then
+    if [ -n ${INPUT_DISABLE_PR+x} ] || [ "${INPUT_DISABLE_PR}" = "false" ]; then
+        git push "https://x-access-token:${INPUT_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" "${ACTION_BRANCHNAME}"
         python3 -m somerandomstringthatdoesnotexsist.create_pr
     fi
     else
