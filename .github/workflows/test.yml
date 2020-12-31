@@ -37,4 +37,7 @@ jobs:
           disable_pr: True
 
       - name: ✅ Check the output
-        run: cat ./changes
+        run: |
+          if [ -z "$(cat ./changes | grep 'Update alpine')" ]; then
+            exit 1
+          fi
