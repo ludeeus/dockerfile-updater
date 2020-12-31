@@ -1,5 +1,4 @@
 import os
-import subprocess
 import glob
 from .config import Config
 from .dockerfile import Dockerfile
@@ -32,6 +31,8 @@ for filepath in sorted(dockerfiles):
         continue
     if Dockerfile(config, filepath).update():
         changed = True
+        with open(filepath) as target:
+            print(target.read())
 
 if not changed:
     exit(0)
