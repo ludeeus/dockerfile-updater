@@ -13,10 +13,10 @@ jobs:
     name: Test
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout files
+      - name: 📥 Checkout the repository
         uses: actions/checkout@v2
 
-      - name: Install requirements
+      - name: 📦 Install requirements
         run: |
           python3 -m pip install setuptools wheel
           python3 -m pip install -r requirements.txt

@@ -1,6 +1,6 @@
 #!/bin/bash
 echo "I solemnly swear that I am up to no good."
-current_branch=$(git branch --show-current)
+current_branch=$(git rev-parse --abbrev-ref HEAD)
 export ACTION_CURRENT_BRANCH="${current_branch}"
 
 timestamp=$(date +%s)

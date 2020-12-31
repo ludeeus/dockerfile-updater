@@ -1,5 +1,3 @@
-import subprocess
-
 class Package:
     def __init__(self, package, seperator="="):
         self.old = package

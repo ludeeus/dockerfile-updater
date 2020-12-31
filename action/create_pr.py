@@ -25,4 +25,3 @@ repo.create_pull(
     head=branch_name,
     base=current_branch_name,
 )
-
