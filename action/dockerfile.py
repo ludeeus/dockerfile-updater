@@ -22,7 +22,6 @@ class Dockerfile:
     def get_structure(self):
         copyfile(self.filepath, "/tmp/Dockerfile")
         dfp = DockerfileParser("/tmp/Dockerfile")
-        print(dfp.__dict__)
         dfp.content = self.content
 
         RUN, FROM, ARG = [], [], []
