@@ -1,5 +1,5 @@
 import os
-from .config import Config
+from config import Config
 
 current_branch_name = os.getenv("ACTION_CURRENT_BRANCH")
 branch_name = os.getenv("ACTION_BRANCHNAME")

@@ -23,7 +23,11 @@ fi
 # Push branch and create PR if needed
 if [ -s changes ]; then
     git push "https://x-access-token:${INPUT_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" "${ACTION_BRANCHNAME}"
-    python3 /action/create_pr.py
+    if [ -n ${INPUT_DISABLE_PR+x} ] || [ "${INPUT_DISABLE_PR}" = "false" ]; then
+        python3 /action/create_pr.py  
+    fi
+    else
+        echo "Automatic PR disabled"
     if [ "$?" != "0" ]; then
         exit 1
     fi
