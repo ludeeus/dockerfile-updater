@@ -6,8 +6,6 @@ This will scan your repository for dockerfiles and update pinned versions in the
 
 If an update is found, that will be committed to a new branch and a pull request will be opened.
 
-**Until I publish a 0.1.0 version you should probably not use this, I will continue messing with the code and use the action in this repository, as well as in [ludeeus/container](https://github.com/ludeeus/container)**
-
 
 ## Configuration options
 
