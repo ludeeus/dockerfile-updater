@@ -1,5 +1,4 @@
 #!/bin/bash
-set -e
 echo "I solemnly swear that I am up to no good."
 cd /github/workspace | exit 1
 current_branch=$(git rev-parse --abbrev-ref HEAD)
@@ -21,23 +20,19 @@ git checkout -b "${ACTION_BRANCHNAME}"
 # Execute action
 mkdir -p /github/workspace/somerandomstringthatdoesnotexsist
 cp -r /action/* /github/workspace/somerandomstringthatdoesnotexsist/
-set +e
 python3 -m somerandomstringthatdoesnotexsist.run
 if [ "$?" != "0" ]; then
     exit 1
 fi
-set -e
 
 # Push branch and create PR if needed
 if [ -s changes ]; then
     if [ -n ${INPUT_DISABLE_PR+x} ] || [ "${INPUT_DISABLE_PR}" = "false" ]; then
         git push "https://x-access-token:${INPUT_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" "${ACTION_BRANCHNAME}"
-        set +e
         python3 -m somerandomstringthatdoesnotexsist.create_pr
         if [ "$?" != "0" ]; then
             exit 1
         fi
-        set -e
     fi
     else
         echo "Automatic PR disabled"
