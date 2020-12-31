@@ -23,6 +23,9 @@ inputs:
   args:
     description: "A comma separated string of ARG key/value pairs."
     required: false
+  disable_pr:
+    description: "Disables auto creation of Pull Request. Setting it to anything will do, except false"
+    required: false
 runs:
   using: 'docker'
   image: 'Dockerfile'

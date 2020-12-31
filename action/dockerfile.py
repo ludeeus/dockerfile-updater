@@ -1,12 +1,12 @@
 import subprocess
 import json
 from dockerfile_parse import DockerfileParser
-from .versions.package import Package
-from .versions.pypi import version_pypi
-from .versions.alpine import version_alpine
-from .versions.debian import version_debian
-from .versions.docker import get_docker_tags
-from .helpers import get_packages
+from versions.package import Package
+from versions.pypi import version_pypi
+from versions.alpine import version_alpine
+from versions.debian import version_debian
+from versions.docker import get_docker_tags
+from helpers import get_packages
 
 
 class Dockerfile:
@@ -79,16 +79,34 @@ class Dockerfile:
 
     def update_args(self, structure):
         inputArgs = self.config.args
-        for fileArgs in structure["arg"] or []:
-            keyValue = fileArgs.split("=")
+        print("ARGs recevied as input: \n", inputArgs)
+        fileArgList = structure["arg"]
+        if not fileArgList:
+            print("No ARGs found in file.")
+            return
+        for fileArg in fileArgList:
+            keyValue = fileArg.split("=")
             key = keyValue[0]
+            # In case ARG value is not set
+            value = ""
+            keyValueSize = len(keyValue)
+            # Validate format
+            if(keyValueSize > 2):
+                print("Found ivalid size of: " + keyValueSize + " Please check format for: \n", keyValue)
+                continue
+            # If the ARG has been set, capture value
+            if(keyValueSize == 2):
+                value = keyValue[1]
             # Lookup the desired args to change
+            print("Existing keyValues: \n", keyValue)
             arg = inputArgs.get(key)
-            if arg:
+            print("Lookup key: ", key) 
+            if(arg):
+                print("Key match. Value: ", arg)
                 self.get_content()
-                self.config = self.content.replace(fileArgs, arg)
+                self.content = self.content.replace("ARG " + fileArg, "ARG " + arg)
                 self.write_content()
-                self.commit("ARG " + key, keyValue[1], arg.split("=")[1])
+                self.commit("ARG " + key, value, arg.split("=")[-1])
 
     def update_base_image(self, structure):
         installed = structure.get("from")[0].strip()
