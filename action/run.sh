@@ -7,7 +7,7 @@ export ACTION_CURRENT_BRANCH="${current_branch}"
 timestamp=$(date +%s)
 export ACTION_BRANCHNAME="dockerfile-updater/${timestamp}"
 
-if [[ -d /github/workspace/somerandomstringthatdoesnotexsist ]]; then
+if [[ -d "/github/workspace/somerandomstringthatdoesnotexsist" ]]; then
     echo "/github/workspace/somerandomstringthatdoesnotexsist exsist"
     exit 1
 fi
