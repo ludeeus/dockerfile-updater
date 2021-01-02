@@ -18,7 +18,7 @@ Key | Optional | Default | Description
 `exclude_package` | True | | A comma separated string of packages you don't want to check
 `commit_msg` | True | `"Update [package] from [from_version] to [to_version]"` | The string used in commit messages.
 `args` | True | | A comma separated string of ARG key/value pairs. i.e. 'ARG1="VALUE1",ARG2="VALUE2'
-`disable_pr` | True | Unset and will create PR | Disables auto creation of Pull Request. Setting it to anything will do, except false.
+`disable_pr` | True | False | Disables auto creation of Pull Request.
 
 ### Valid types for `exclude_type`
 
