@@ -7,7 +7,7 @@ export ACTION_CURRENT_BRANCH="${current_branch}"
 timestamp=$(date +%s)
 export ACTION_BRANCHNAME="dockerfile-updater/${timestamp}"
 
-if [ -d /github/workspace/somerandomstringthatdoesnotexsist ]; then
+if [[ -d "/github/workspace/somerandomstringthatdoesnotexsist" ]]; then
     echo "/github/workspace/somerandomstringthatdoesnotexsist exsist"
     exit 1
 fi
@@ -32,15 +32,15 @@ fi
 
 # Push branch and create PR if needed
 if [ -f ./changes ]; then
-    if [ -z "${INPUT_DISABLE_PR}" ] || [ "${INPUT_DISABLE_PR}" = "false" ]; then
+    if [ "${INPUT_DISABLE_PR}" == "True" ] || [ "${INPUT_DISABLE_PR}" == "true" ]; then
+        echo "Automatic PR disabled"
+    else
         git push "https://x-access-token:${INPUT_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" "${ACTION_BRANCHNAME}"
         python3 -m somerandomstringthatdoesnotexsist.create_pr
         if [ "$?" != "0" ]; then
             exit 1
         fi
     fi
-    else
-        echo "Automatic PR disabled"
 fi
 
 rm -rf /github/workspace/somerandomstringthatdoesnotexsist
